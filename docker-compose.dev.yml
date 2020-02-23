@@ -1,0 +1,36 @@
+version: '3.7'
+
+networks:
+  internalDB:
+
+services:
+  API:
+    build:
+      context: ./API/
+      dockerfile: Dockerfile.dev
+    image: kristianfoss/development/app-template-api
+    command: /bin/sh -c "while sleep 1000; do :; done"
+    networks:
+      - internalDB
+    volumes:
+      - ./.git:/workspace/.git:cached
+      - ./.gitignore:/workspace/.gitignore:cached
+      - apiModules:/workspace/API/node_modules
+      - ./API:/workspace/API:cached
+
+  database:
+    image: postgres:alpine
+    volumes:
+      - databaseData:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    networks:
+      - internalDB
+    environment:
+      POSTGRES_PASSWORD: pgpass
+      POSTGRES_DB: app-template
+
+volumes:
+  apiModules:
+  databaseData:
+  pgAdminData:

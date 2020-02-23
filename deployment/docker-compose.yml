@@ -1,0 +1,28 @@
+version: '3.7'
+
+networks:
+  internalDB:
+
+services:
+  API:
+    build:
+      context: ../API/
+      dockerfile: Dockerfile
+    image: kristianfoss/prod/app-template-api
+    ports:
+      - 8080:8080
+    networks:
+      - internalDB
+
+  database:
+    image: postgres:alpine
+    volumes:
+      - databaseData:/var/lib/postgresql/data
+    networks:
+      - internalDB
+    environment:
+      POSTGRES_PASSWORD: pgpass
+      POSTGRES_DB: app-template
+
+volumes:
+  databaseData:
