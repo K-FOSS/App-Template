@@ -12,6 +12,14 @@ export async function createApolloServer(): Promise<ApolloServer> {
     gqlServer = new ApolloServer({
       schema: await generateGQLSchema(),
       context: getGQLContext,
+      introspection: true,
+      playground: {
+        settings: {
+          'editor.theme': 'light',
+          'general.betaUpdates': true,
+        },
+        workspaceName: 'app-template',
+      },
     });
   }
 

@@ -20,6 +20,7 @@ export async function generateGQLSchema(): Promise<GraphQLSchema> {
 
     schema = await buildSchema({
       resolvers: resolvers as any,
+      emitSchemaFile: 'Schema.graphql',
     });
     const directives = await loadFiles<typeof SchemaDirectiveVisitor>(
       'Modules/**/**Directive.+(ts|js)',

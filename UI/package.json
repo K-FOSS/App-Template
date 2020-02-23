@@ -1,0 +1,41 @@
+{
+  "name": "ui",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "browserslist": [
+    "last 1 Chrome version"
+  ],
+  "targets": {
+    "public": {
+      "context": "browser",
+      "outputFormat": "esmodule"
+    }
+  },
+  "scripts": {
+    "test": "jest --verbose",
+    "dev:hmr": "nodemon",
+    "test:build": "ts-node --project bin/tsconfig.json ./bin/builder",
+    "dev:debug": "node --nolazy --inspect-brk=0.0.0.0 --loader @k-foss/ts-esnode --experimental-modules --experimental-specifier-resolution=node --harmony-top-level-await ./Server/index.ts",
+    "dev:ui": "parcel watch UI/Client.tsx",
+    "build:web": "parcel build UI/Client.tsx"
+  },
+  "dependencies": {
+    "@k-foss/ts-esnode": "^1.1.0",
+    "fastify": "^2.12.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "typescript": "^3.8.2"
+  },
+  "devDependencies": {
+    "@parcel/validator-typescript": "^2.0.0-nightly.117",
+    "@types/node": "^13.7.4",
+    "@types/react": "^16.9.22",
+    "@types/react-dom": "^16.9.5",
+    "nodemon": "^2.0.2",
+    "parcel": "^2.0.0-nightly.115",
+    "react-refresh": "^0.7.2",
+    "ts-node": "^8.6.2"
+  },
+  "license": "ISC"
+}

@@ -12,7 +12,7 @@ export class ConfigurationResolver {
   }
 
   @Directive('@setupRequired')
-  @Query(() => String)
+  @Query(() => String, { description: 'Hello World Test' })
   async helloWorld(): Promise<'helloWorld'> {
     return 'helloWorld';
   }

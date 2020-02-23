@@ -1,9 +1,16 @@
 // src/Config/index.ts
+type AppEnvironment = 'production' | 'testing' | 'development' | 'staging';
+
 interface Config {
   /**
    * Public name of the Application
    */
   appName: string;
+
+  /**
+   *
+   */
+  appEnv: AppEnvironment;
 
   /**
    * Google Cloud Features Flag
@@ -46,10 +53,20 @@ interface Config {
   };
 }
 
+let appEnv: AppEnvironment;
+if (
+  process.env.NODE_ENV === 'production' ||
+  process.env.NODE_ENV === 'testing' ||
+  process.env.NODE_ENV === 'staging'
+)
+  appEnv = process.env.NODE_ENV as 'production' | 'testing' | 'staging';
+else appEnv = 'development';
+
 export const config: Config = {
   appName: process.env.APP_NAME || 'App Template',
   googleStackDriver: process.env.GOOGLE_CLOUD_STACKDRIVER === 'true' || true,
   googleCloud: process.env.GOOGLE_CLOUD === 'true' || true,
+  appEnv,
 
   database: {
     host: 'database',

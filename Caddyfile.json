@@ -1,0 +1,50 @@
+{
+  "apps": {
+    "http": {
+      "servers": {
+        "srv0": {
+          "listen": [":8085"],
+          "automatic_https": {
+            "disable": true
+          },
+          "routes": [
+            {
+              "match": [
+                {
+                  "path": ["/graphql"]
+                }
+              ],
+              "handle": [
+                {
+                  "handler": "reverse_proxy",
+                  "upstreams": [
+                    {
+                      "dial": "API:8080"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "handle": [
+                {
+                  "handler": "file_server",
+                  "root": "/app/public",
+                  "pass_thru": true
+                },
+                {
+                  "handler": "reverse_proxy",
+                  "upstreams": [
+                    {
+                      "dial": "UI:8085"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}

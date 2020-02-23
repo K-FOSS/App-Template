@@ -1,5 +1,4 @@
 {
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
   "compilerOptions": {
     "target": "ES2020",
 
@@ -17,10 +16,6 @@
     // Features
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "plugins": [
-      {
-        "name": "@divyenduz/ts-graphql-plugin"
-      }
-    ]
+    "jsx": "react"
   }
 }

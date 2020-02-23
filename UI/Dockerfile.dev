@@ -26,6 +26,8 @@ RUN cd /tmp/watchman \
   --disable-shared \
   && make -j$(getconf _NPROCESSORS_ONLN)
 
+RUN ls -lah /tmp/watchman
+
 FROM node:alpine3.11
 # This Dockerfile adds a non-root user with sudo access. Use the "remoteUser"
 # property in devcontainer.json to use it. On Linux, the container user's GID/UIDs
@@ -41,9 +43,6 @@ RUN apk add --no-cache sudo git
 RUN echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
   && chmod 0440 /etc/sudoers.d/$USERNAME
 
-COPY --from=watchman-build /tmp/watchman/watchman /usr/bin/watchman
-
-RUN mkdir -p /usr/local/var/run/watchman \
-  && chown -R node:${USER_GID} /usr/local/var/run/watchman
+COPY --from=watchman-build /tmp/watchman/watchman /usr/local/var/run/watchman
 
 CMD [ "tail", "-f", "/dev/null" ]

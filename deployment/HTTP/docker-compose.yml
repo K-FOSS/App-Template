@@ -2,17 +2,32 @@ version: '3.7'
 
 networks:
   internalDB:
+  publicWeb:
+
+volumes:
+  databaseData:
 
 services:
+  Web:
+    image: caddy/caddy:scratch
+    restart: unless-stopped
+    command: ['run', '--config', '/etc/caddy/Caddyfile.json']
+    volumes:
+      - ./Caddyfile.json:/etc/caddy/Caddyfile.json
+    ports:
+      - 80:80
+    networks:
+      - publicWeb
+
   API:
     build:
       context: ../API/
       dockerfile: Dockerfile
     image: kristianfoss/prod/app-template-api
-    ports:
-      - 8080:8080
+    restart: unless-stopped
     networks:
       - internalDB
+      - publicWeb
 
   database:
     image: postgres:alpine
@@ -23,6 +38,3 @@ services:
     environment:
       POSTGRES_PASSWORD: pgpass
       POSTGRES_DB: app-template
-
-volumes:
-  databaseData:

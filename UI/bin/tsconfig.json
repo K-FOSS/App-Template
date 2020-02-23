@@ -1,9 +1,8 @@
 {
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
   "compilerOptions": {
     "target": "ES2020",
 
-    "module": "ESNext",
+    "module": "CommonJS",
     "moduleResolution": "Node",
     "allowSyntheticDefaultImports": true,
 
@@ -17,10 +16,6 @@
     // Features
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "plugins": [
-      {
-        "name": "@divyenduz/ts-graphql-plugin"
-      }
-    ]
+    "jsx": "react"
   }
 }

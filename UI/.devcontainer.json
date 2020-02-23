@@ -1,15 +1,15 @@
 {
   // General
-  "name": "App Template API",
+  "name": "App Template UI",
 
   // Docker Compose
   "dockerComposeFile": ["../docker-compose.dev.yml"],
-  "service": "API",
+  "service": "UI",
 
   // App Information
   "appPort": 80,
   "remoteUser": "node",
-  "workspaceFolder": "/workspace/API",
+  "workspaceFolder": "/workspace/UI",
 
   "remoteEnv": {
     "GIT_DISCOVERY_ACROSS_FILESYSTEM": "true"

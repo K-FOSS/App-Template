@@ -1,0 +1,7 @@
+projects:
+  app:
+    schemaPath: ./Schema.graphql
+    includes: ['**/*.graphql']
+    extensions:
+      endpoints:
+        default: http://api:8080/graphql
