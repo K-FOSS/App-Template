@@ -1,6 +1,13 @@
 #!/bin/sh
-SERVICES=()
+SERVICES="API UI"
+COMPOSE_FILE="./docker-compose.dev.yml"
 
-echo "Launching container based development"
+function composer() {
+  docker-compose -f ${COMPOSE_FILE} ${@}
+}
 
-code -n ./API; code -n ./UI
+for service in ${SERVICES}; do
+  composer run --rm ${service} sudo chown -R node:node /workspace &>/dev/null
+  echo "Launching ${service} in new window"
+  code -n ./${service}
+done
