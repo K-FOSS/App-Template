@@ -11,7 +11,7 @@ export class ConfigurationResolver {
     return Configuration.hasCompletedSetup();
   }
 
-  @Directive('@setupRequired')
+  @Directive('@setupRequired(required: false)')
   @Query(() => String, { description: 'Hello World Test' })
   async helloWorld(): Promise<'helloWorld'> {
     return 'helloWorld';

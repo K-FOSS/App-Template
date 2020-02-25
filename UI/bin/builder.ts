@@ -1,12 +1,28 @@
 // bin/builder.ts
-// @ts-nocheck
-import { resolve } from 'path';
-import { NodePackageManager } from '@parcel/package-manager';
-import { NodeFS } from '@parcel/fs';
-import { fileURLToPath } from 'url';
+// @ts-ignore
 import Parcel from '@parcel/core';
+// @ts-ignore
+import { NodeFS } from '@parcel/fs';
+// @ts-ignore
+import { NodePackageManager } from '@parcel/package-manager';
+import { promises as fs } from 'fs';
+import { resolve } from 'path';
 
-async function test() {
+async function remove(path: string): Promise<void> {
+  const dirItems = await fs.readdir(path);
+
+  await Promise.all(
+    dirItems.map(async (dirItem) => {
+      const filePath = resolve(path, dirItem);
+
+      const info = await fs.stat(filePath);
+      if (info.isFile()) return fs.unlink(filePath);
+      else return fs.rmdir(filePath, { recursive: true });
+    }),
+  );
+}
+
+async function build() {
   const packageManager = new NodePackageManager(new NodeFS());
   // @ts-ignore
   const defaultConfig = await packageManager.require(
@@ -15,30 +31,34 @@ async function test() {
     __filename,
   );
 
-  console.log(Parcel);
+  await remove(resolve('./dist/public'));
+
+  console.log('Creating Parcel', resolve('.'));
   const parcel = new Parcel({
+    disableCache: true,
+    cacheDir: undefined,
+    mode: 'development',
+    sourceMaps: false,
     entries: [resolve('UI/Client.tsx')],
     defaultConfig,
     packageManager,
-    rootDir: resolve('./'),
+    rootDir: resolve('./UI'),
     patchConsole: false,
-    cacheDir: undefined,
     minify: false,
-    sourceMaps: false,
-    scopeHoist: true,
+    scopeHoist: false,
     hot: false,
     serve: false,
-    targets: ['public'],
     autoinstall: true,
     logLevel: undefined,
     profile: undefined,
+    env: { NODE_ENV: 'development' },
   });
 
-  await parcel.run();
+  console.log('Starting to watch code.');
+
+  await parcel.watch();
 
   // console.log(NodePackageManager, Test);
 }
 
-test();
-
-export {};
+build();

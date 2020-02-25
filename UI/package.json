@@ -6,35 +6,42 @@
   "browserslist": [
     "last 1 Chrome version"
   ],
+  "sourceType": "module",
   "targets": {
     "public": {
       "context": "browser",
-      "outputFormat": "esmodule"
+      "includeNodeModules": true
     }
   },
   "scripts": {
     "test": "jest --verbose",
     "dev:hmr": "nodemon",
     "test:build": "ts-node --project bin/tsconfig.json ./bin/builder",
-    "dev:debug": "node --nolazy --inspect-brk=0.0.0.0 --loader @k-foss/ts-esnode --experimental-modules --experimental-specifier-resolution=node --harmony-top-level-await ./Server/index.ts",
-    "dev:ui": "parcel watch UI/Client.tsx",
+    "dev:debug": "node --nolazy --inspect-brk=0.0.0.0 --experimental-loader=@k-foss/ts-esnode --experimental-modules --experimental-specifier-resolution=node --harmony-top-level-await --harmony-optional-chaining ./Server/index.ts",
+    "dev:ui": "parcel watch --no-cache UI/Client.tsx",
     "build:web": "parcel build UI/Client.tsx"
   },
   "dependencies": {
+    "@apollo/client": "^3.0.0-beta.37",
+    "@apollo/react-hooks": "^4.0.0-beta.1",
+    "@apollo/react-ssr": "^4.0.0-beta.1",
     "@k-foss/ts-esnode": "^1.1.0",
     "fastify": "^2.12.0",
+    "graphql": "^14.6.0",
+    "graphql-tag": "^2.10.3",
+    "isomorphic-unfetch": "^3.0.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "typescript": "^3.8.2"
   },
   "devDependencies": {
-    "@parcel/validator-typescript": "^2.0.0-nightly.117",
+    "@babel/plugin-proposal-decorators": "^7.8.3",
+    "@parcel/transformer-typescript-tsc": "^2.0.0-nightly.121",
     "@types/node": "^13.7.4",
     "@types/react": "^16.9.22",
     "@types/react-dom": "^16.9.5",
     "nodemon": "^2.0.2",
-    "parcel": "^2.0.0-nightly.115",
-    "react-refresh": "^0.7.2",
+    "parcel": "^2.0.0-nightly.120",
     "ts-node": "^8.6.2"
   },
   "license": "ISC"

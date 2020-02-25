@@ -24,9 +24,24 @@ export class SetupRequired extends SchemaDirectiveVisitor {
   ) {
     const { resolve = defaultFieldResolver } = field;
 
+    let requiredState = this.args.required || true;
+    console.log(`Required State: `, requiredState);
+
+    console.log(
+      `Setup Required Visit Field. field: `,
+      field,
+      `\nDetails: `,
+      details,
+      `This: `,
+      this,
+    );
+
     field.resolve = async function(...args) {
       const hasSetup = await Configuration.hasCompletedSetup();
-      if (!hasSetup) throw new Error('Setup has not been completed');
+      if (hasSetup !== requiredState)
+        throw new Error(
+          `Setup has ${requiredState ? 'not yet' : 'already'} been completed`,
+        );
 
       return resolve.apply(this, args);
     };

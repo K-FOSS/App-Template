@@ -1,12 +1,20 @@
-// UI/App.tsx
 import React from 'react';
+import gql from 'graphql-tag';
+import { useQuery } from '@apollo/react-hooks';
 
-export function App(): React.ReactElement {
-  const message = 'helloWorld';
+const hasSetupGQL = gql`
+  {
+    hasFinishedSetup
+  }
+`;
+
+export function App() {
+  const { data } = useQuery<{ hasFinishedSetup: boolean }>(hasSetupGQL);
 
   return (
-    <div onClick={() => console.log(`I've been Fucking clicked!`)}>
-      {message}
+    <div>
+      {data?.hasFinishedSetup.valueOf() ? 'has' : `hasn't`} Setup Application
+      Yet
     </div>
   );
 }

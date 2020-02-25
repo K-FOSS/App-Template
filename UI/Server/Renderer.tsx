@@ -1,7 +1,10 @@
 // Server/Renderer.tsx
+import { InMemoryCache } from '@apollo/react-hooks';
+import { getDataFromTree } from '@apollo/react-ssr';
 import React from 'react';
 import { renderToNodeStream } from 'react-dom/server';
-import { Duplex, Writable, Readable, Transform } from 'stream';
+import { Duplex, Transform } from 'stream';
+import { ApolloProvider } from '../UI/Providers/ApolloProvider';
 
 const htmlStart = `<!DOCTYPE html>
 <html>
@@ -11,12 +14,6 @@ const htmlStart = `<!DOCTYPE html>
 <body>
   <div id="app">
     `;
-
-const htmlEnd = `
-  </div>
-  <script type="module" src="Client.js"></script>
-</body>
-</html>`;
 
 export async function renderUIStream(): Promise<Duplex> {
   const uiStream = new Transform({
@@ -29,11 +26,28 @@ export async function renderUIStream(): Promise<Duplex> {
 
   const { App } = await import('../UI/App');
 
-  const appStream = renderToNodeStream(<App />);
+  const serverCache = new InMemoryCache();
+
+  const app = (
+    <ApolloProvider cache={serverCache}>
+      <App />
+    </ApolloProvider>
+  );
+  await getDataFromTree(app);
+
+  const appStream = renderToNodeStream(app);
+
   appStream.pipe(uiStream, { end: false });
 
   appStream.on('end', () => {
-    console.log('App Stream Done');
+    const htmlEnd = `
+  </div>
+  <script type="application/javascript">window.APOLLO_STATE = ${JSON.stringify(
+    serverCache.extract(),
+  )}</script>
+  <script type="module" src="Client.js"></script>
+</body>
+</html>`;
 
     uiStream.end(htmlEnd);
   });
