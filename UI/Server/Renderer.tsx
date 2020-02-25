@@ -4,7 +4,7 @@ import { getDataFromTree } from '@apollo/react-ssr';
 import React from 'react';
 import { renderToNodeStream } from 'react-dom/server';
 import { Duplex, Transform } from 'stream';
-import { ApolloProvider } from '../UI/Providers/ApolloProvider';
+import { ApolloProvider } from '../Web/Providers/ApolloProvider';
 
 const htmlStart = `<!DOCTYPE html>
 <html>
@@ -24,7 +24,7 @@ export async function renderUIStream(): Promise<Duplex> {
   });
   uiStream.write(htmlStart);
 
-  const { App } = await import('../UI/App');
+  const { App } = await import('../Web/App');
 
   const serverCache = new InMemoryCache();
 
