@@ -7,12 +7,10 @@
       "@parcel/transformer-typescript-types"
     ],
     "bundle-text:*": [
-      "@parcel/transformer-inline-string",
-      "..."
+      "@parcel/transformer-inline-string"
     ],
     "data-url:*": [
-      "@parcel/transformer-inline-string",
-      "..."
+      "@parcel/transformer-inline-string"
     ],
     "*.{js,mjs,jsm,jsx,es6}": [
       "@parcel/transformer-react-refresh-babel",

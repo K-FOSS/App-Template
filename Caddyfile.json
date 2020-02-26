@@ -3,28 +3,8 @@
     "http": {
       "servers": {
         "srv0": {
-          "listen": [":8085"],
-          "automatic_https": {
-            "disable": true
-          },
+          "listen": [":443"],
           "routes": [
-            {
-              "match": [
-                {
-                  "path": ["/graphql"]
-                }
-              ],
-              "handle": [
-                {
-                  "handler": "reverse_proxy",
-                  "upstreams": [
-                    {
-                      "dial": "API:8080"
-                    }
-                  ]
-                }
-              ]
-            },
             {
               "match": [
                 {
@@ -48,11 +28,6 @@
                   "header": {
                     "Sec-WebSocket-Version": ["13"]
                   }
-                },
-                {
-                  "path_regexp": {
-                    "pattern": ".*js"
-                  }
                 }
               ],
               "handle": [
@@ -63,6 +38,21 @@
                       "dial": "UI:8123"
                     }
                   ]
+                }
+              ]
+            },
+            {
+              "match": [
+                {
+                  "path_regexp": {
+                    "pattern": ".*js"
+                  }
+                }
+              ],
+              "handle": [
+                {
+                  "handler": "file_server",
+                  "root": "/app/public/static"
                 }
               ]
             },
@@ -80,6 +70,11 @@
             }
           ]
         }
+      }
+    },
+    "tls": {
+      "certificates": {
+        "load_folders": ["/TLS"]
       }
     }
   }
