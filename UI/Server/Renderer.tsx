@@ -5,6 +5,7 @@ import React from 'react';
 import { renderToNodeStream } from 'react-dom/server';
 import { Duplex, Transform } from 'stream';
 import { ApolloProvider } from '../Web/Providers/ApolloProvider';
+import { StaticRouter } from 'react-router';
 
 const htmlStart = `<!DOCTYPE html>
 <html>
@@ -12,10 +13,9 @@ const htmlStart = `<!DOCTYPE html>
   <script>window.__INITIAL__DATA__ = {}</script>
 </head>
 <body>
-  <div id="app">
-    `;
+  <div id="app">`;
 
-export async function renderUIStream(): Promise<Duplex> {
+export async function renderUIStream(url?: string): Promise<Duplex> {
   const uiStream = new Transform({
     transform(chunk, enc, cb) {
       this.push(chunk);
@@ -28,9 +28,12 @@ export async function renderUIStream(): Promise<Duplex> {
 
   const serverCache = new InMemoryCache();
 
+  const context = {};
   const app = (
     <ApolloProvider cache={serverCache}>
-      <App />
+      <StaticRouter location={url} context={context}>
+        <App />
+      </StaticRouter>
     </ApolloProvider>
   );
   await getDataFromTree(app);
@@ -40,12 +43,11 @@ export async function renderUIStream(): Promise<Duplex> {
   appStream.pipe(uiStream, { end: false });
 
   appStream.on('end', () => {
-    const htmlEnd = `
-  </div>
+    const htmlEnd = `</div>
   <script type="application/javascript">window.APOLLO_STATE = ${JSON.stringify(
     serverCache.extract(),
   )}</script>
-  <script type="module" src="Client.js"></script>
+  <script type="module" src="/Web/Client.js"></script>
 </body>
 </html>`;
 

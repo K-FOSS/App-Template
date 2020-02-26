@@ -22,42 +22,54 @@ async function remove(path: string): Promise<void> {
   );
 }
 
-async function build() {
+async function build(dev: boolean = true) {
   const packageManager = new NodePackageManager(new NodeFS());
   // @ts-ignore
   const defaultConfig = await packageManager.require(
     '@parcel/config-default',
-    // @ts-ignore
     __filename,
+  );
+
+  await fs.copyFile(
+    'extras/hmr-runtime.js',
+    'node_modules/@parcel/runtime-browser-hmr/lib/loaders/hmr-runtime.js',
   );
 
   await remove(resolve('./dist/public'));
 
   console.log('Creating Parcel', resolve('.'));
   const parcel = new Parcel({
-    disableCache: true,
-    cacheDir: undefined,
-    mode: 'development',
+    disableCache: false,
+    mode: dev ? 'development' : 'production',
+    minify: !dev,
     sourceMaps: false,
+    scopeHoist: false,
+    publicUrl: undefined,
+    distDir: undefined,
+    hot: dev,
+    serve: {
+      https: false,
+      port: 8123,
+      host: '0.0.0.0',
+      publicUrl: undefined,
+    },
+    autoinstall: true,
+
     entries: [resolve('Web/Client.tsx')],
     defaultConfig,
     packageManager,
-    rootDir: resolve('./Web'),
-    patchConsole: false,
-    minify: false,
-    scopeHoist: false,
-    hot: false,
-    serve: false,
-    autoinstall: true,
+    rootDir: resolve('.'),
+    patchConsole: true,
+    targets: ['public'],
+
     logLevel: undefined,
     profile: undefined,
-    env: { NODE_ENV: 'development' },
+    env: { NODE_ENV: dev ? 'development' : 'production' },
   });
 
   console.log('Starting to watch code.');
-
-  await parcel.watch();
-
+  if (dev) await parcel.watch();
+  else await parcel.run();
   // console.log(NodePackageManager, Test);
 }
 

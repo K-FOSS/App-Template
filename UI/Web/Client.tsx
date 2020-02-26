@@ -1,17 +1,23 @@
 // UI/Client.tsx
 import React from 'react';
-import { hydrate } from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { ApolloProvider } from './Providers/ApolloProvider';
 
-async function startClient() {
-  const { App } = await import('./App');
+async function renderClient() {
+  const [{ App }, { hydrate }] = await Promise.all([
+    import('./App')
+    import('react-dom')
+  ])
 
   hydrate(
     <ApolloProvider>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </ApolloProvider>,
     document.getElementById('app'),
   );
 }
 
-startClient();
+renderClient();
+

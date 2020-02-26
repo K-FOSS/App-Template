@@ -26,12 +26,48 @@
               ]
             },
             {
+              "match": [
+                {
+                  "path": ["/graphql"]
+                }
+              ],
               "handle": [
                 {
-                  "handler": "file_server",
-                  "root": "/app/public",
-                  "pass_thru": true
+                  "handler": "reverse_proxy",
+                  "upstreams": [
+                    {
+                      "dial": "API:8080"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "match": [
+                {
+                  "header": {
+                    "Sec-WebSocket-Version": ["13"]
+                  }
                 },
+                {
+                  "path_regexp": {
+                    "pattern": ".*js"
+                  }
+                }
+              ],
+              "handle": [
+                {
+                  "handler": "reverse_proxy",
+                  "upstreams": [
+                    {
+                      "dial": "UI:8123"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "handle": [
                 {
                   "handler": "reverse_proxy",
                   "upstreams": [

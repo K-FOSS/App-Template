@@ -11,7 +11,7 @@ services:
     command: ['run', '--config', '/etc/caddy/Caddyfile.json']
     volumes:
       - ./Caddyfile.json:/etc/caddy/Caddyfile.json
-      - staticWeb:/app/public:ro
+      - staticWeb:/app/public/static:ro
     ports:
       - 8085:8085
     networks:

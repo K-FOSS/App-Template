@@ -4,8 +4,8 @@ import { renderUIStream } from './Renderer';
 
 const webServer = Fastify();
 
-webServer.get('/', async (request, reply) => {
-  const componentStream = await renderUIStream();
+webServer.get('/*', async (request, reply) => {
+  const componentStream = await renderUIStream(request.req.url);
 
   reply.type('text/html').send(componentStream);
 
