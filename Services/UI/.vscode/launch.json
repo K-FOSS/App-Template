@@ -8,6 +8,9 @@
       "protocol": "inspector",
       "port": 9229,
       "restart": true,
+      "env": {
+        "NODE_ENV": "production"
+      },
 
       "cwd": "${workspaceFolder}",
       "runtimeExecutable": "npm",

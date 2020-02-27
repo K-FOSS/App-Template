@@ -1,13 +1,8 @@
-// Server/Config.ts
+// src/Config.ts
 const defaultSecretKey = 'super-secret-key';
 
 export const config = {
   secretKey: process.env.SECRET_KEY || defaultSecretKey,
-
-  /**
-   * Require auth to access UI
-   */
-  requireAuth: process.env.AUTH_REQUIRED || true,
 
   /**
    * Hostname of the API Server, used for GraphQL Requests

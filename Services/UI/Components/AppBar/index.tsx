@@ -1,22 +1,22 @@
 // Components/AppBar/index.tsx
 import {
   AppBar as MUIAppBar,
-  Button,
-  Toolbar,
-  Typography,
-  makeStyles,
-  IconButton,
-  Theme,
   createStyles,
+  makeStyles,
+  Theme,
+  Toolbar,
+  IconButton,
+  Typography,
 } from '@material-ui/core';
-import React, { useMemo } from 'react';
-import { Menu as MenuIcon } from '@material-ui/icons';
+import { Menu } from '@material-ui/icons';
+import React from 'react';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      flexGrow: 1,
+    appBar: {
+      zIndex: theme.zIndex.drawer + 1,
     },
+    toolbar: theme.mixins.toolbar,
     menuButton: {
       marginRight: theme.spacing(2),
     },
@@ -29,12 +29,9 @@ const useStyles = makeStyles((theme: Theme) =>
 export function AppBar(): React.ReactElement {
   const classes = useStyles();
 
-  console.log(`I'm an AppBar!`);
-
-  return useMemo(
-    () => (
-      <MUIAppBar position='static'>
-        {' '}
+  return (
+    <>
+      <MUIAppBar position='sticky' className={classes.appBar}>
         <Toolbar>
           <IconButton
             edge='start'
@@ -42,15 +39,13 @@ export function AppBar(): React.ReactElement {
             color='inherit'
             aria-label='menu'
           >
-            <MenuIcon />
+            <Menu />
           </IconButton>
           <Typography variant='h6' className={classes.title}>
-            News
+            Photos
           </Typography>
-          <Button color='inherit'>Login</Button>
         </Toolbar>
       </MUIAppBar>
-    ),
-    [],
+    </>
   );
 }

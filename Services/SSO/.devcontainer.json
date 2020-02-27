@@ -5,6 +5,7 @@
   // Docker Compose
   "dockerComposeFile": ["../../docker-compose.dev.yml"],
   "service": "SSO",
+  "shutdownAction": "none",
 
   // App Information
   "appPort": 80,

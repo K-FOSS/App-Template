@@ -7,8 +7,8 @@ import AboutRoute from './About/index';
 export function Router(): React.ReactElement {
   return (
     <Switch>
-      <Route exact path="/" component={HomeRoute} />
-      <Route exact path="/About" component={AboutRoute} />
+      <Route exact path='/' component={HomeRoute} />
+      <Route exact path='/About' component={AboutRoute} />
     </Switch>
   );
 }

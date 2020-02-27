@@ -4,12 +4,24 @@
     {
       "label": "parcel-watch",
       "command": "npm",
-      "args": ["run", "test:build"],
+      "args": ["run", "watch:web"],
       "type": "process",
       "isBackground": true,
-      "group": "build",
+      "problemMatcher": {
+        "background": {
+          "activeOnStart": true
+        },
+        "pattern": [
+          {
+            "regexp": "^([^\\\\s].*)\\\\((\\\\d+,\\\\d+)\\\\):\\\\s*(.*)$",
+            "file": 1,
+            "location": 2,
+            "message": 3
+          }
+        ]
+      },
       "presentation": {
-        "reveal": "always"
+        "reveal": "never"
       }
     }
   ]

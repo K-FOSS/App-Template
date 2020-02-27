@@ -22,7 +22,7 @@ async function remove(path: string): Promise<void> {
   );
 }
 
-async function build(dev: boolean = true) {
+export async function buildWeb(dev: boolean = true) {
   const packageManager = new NodePackageManager(new NodeFS());
   // @ts-ignore
   const defaultConfig = await packageManager.require(
@@ -41,13 +41,14 @@ async function build(dev: boolean = true) {
   const parcel = new Parcel({
     disableCache: false,
     mode: dev ? 'development' : 'production',
+    // TODO: Fix once parcel minify works
     minify: !dev,
-    sourceMaps: false,
-    scopeHoist: false,
+    sourceMaps: true,
+    scopeHoist: !dev,
     publicUrl: undefined,
     distDir: undefined,
     hot: dev,
-    serve: {
+    serve: dev && {
       https: false,
       port: 8123,
       host: '0.0.0.0',
@@ -59,7 +60,7 @@ async function build(dev: boolean = true) {
     defaultConfig,
     packageManager,
     rootDir: resolve('.'),
-    patchConsole: true,
+    patchConsole: false,
     targets: ['public'],
 
     logLevel: undefined,
@@ -67,10 +68,55 @@ async function build(dev: boolean = true) {
     env: { NODE_ENV: dev ? 'development' : 'production' },
   });
 
-  console.log('Starting to watch code.');
+  console.log(`Starting to ${dev ? 'watch' : 'build'} code.`);
   if (dev) await parcel.watch();
   else await parcel.run();
   // console.log(NodePackageManager, Test);
 }
 
-build();
+export async function buildServer(dev: boolean = true) {
+  const packageManager = new NodePackageManager(new NodeFS());
+  // @ts-ignore
+  const defaultConfig = await packageManager.require(
+    '@parcel/config-default',
+    __filename,
+  );
+
+  await fs.copyFile(
+    'extras/hmr-runtime.js',
+    'node_modules/@parcel/runtime-browser-hmr/lib/loaders/hmr-runtime.js',
+  );
+
+  await remove(resolve('./dist/server'));
+
+  console.log('Creating Parcel', resolve('.'));
+  const parcel = new Parcel({
+    disableCache: true,
+    mode: dev ? 'development' : 'production',
+    // TODO: Fix once parcel minify works
+    minify: !dev,
+    sourceMaps: true,
+    scopeHoist: true,
+    publicUrl: undefined,
+    distDir: undefined,
+    hot: false,
+    serve: false,
+    autoinstall: true,
+
+    entries: [resolve('Web/App.tsx')],
+    defaultConfig,
+    packageManager,
+    rootDir: resolve('.'),
+    patchConsole: false,
+    targets: ['server'],
+
+    logLevel: undefined,
+    profile: undefined,
+    env: { NODE_ENV: dev ? 'development' : 'production' },
+  });
+
+  console.log(`Starting to ${dev ? 'watch' : 'build'} code.`);
+  if (dev) await parcel.watch();
+  else await parcel.run();
+  // console.log(NodePackageManager, Test);
+}

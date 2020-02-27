@@ -1,5 +1,5 @@
 #!/bin/sh
-SERVICES="API UI SSO"
+SERVICES=${1:-"API UI SSO"}
 COMPOSE_FILE="./docker-compose.dev.yml"
 
 function composer() {

@@ -2,14 +2,29 @@
 import { InMemoryCache } from '@apollo/react-hooks';
 import { getDataFromTree } from '@apollo/react-ssr';
 import React from 'react';
-import { renderToNodeStream } from 'react-dom/server';
+import { renderToNodeStream, renderToString } from 'react-dom/server';
 import { Duplex, Transform } from 'stream';
 import { ApolloProvider } from '../Web/Providers/ApolloProvider';
+import { ThemeProvider } from '../Web/Providers/ThemeProvider';
 import { StaticRouter } from 'react-router';
 import { ServerStyleSheets } from '@material-ui/core/styles';
 
 const htmlStart = `<!DOCTYPE html>
-<html><head>`;
+<html><head>
+<style>
+body {
+  padding: 0;
+  margin: 0;
+}
+
+html, body {
+  height: 100%;
+}
+</style>
+<link rel="manifest" href="/manifest.json">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<link rel="icon" href="https://www.shareicon.net/data/512x512/2016/07/10/119930_google_512x512.png">`;
 
 export async function renderUIStream(url?: string): Promise<Duplex> {
   const uiStream = new Transform({
@@ -20,18 +35,20 @@ export async function renderUIStream(url?: string): Promise<Duplex> {
   });
   uiStream.write(htmlStart);
 
-  const { App } = await import('../Web/App');
+  const { App } = await import('../dist/server/Web/App');
 
   const serverCache = new InMemoryCache();
   const serverSheets = new ServerStyleSheets();
 
   const context = {};
   const app = (
-    <ApolloProvider cache={serverCache}>
-      <StaticRouter location={url} context={context}>
-        <App />
-      </StaticRouter>
-    </ApolloProvider>
+    <StaticRouter location={url} context={context}>
+      <ApolloProvider cache={serverCache}>
+        <ThemeProvider>
+          <App />
+        </ThemeProvider>
+      </ApolloProvider>
+    </StaticRouter>
   );
   await getDataFromTree(serverSheets.collect(app));
 

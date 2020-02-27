@@ -20,7 +20,26 @@
                     }
                   ]
                 }
-              ]
+              ],
+              "terminal": true
+            },
+            {
+              "match": [
+                {
+                  "path": ["/SSO/*"]
+                }
+              ],
+              "handle": [
+                {
+                  "handler": "reverse_proxy",
+                  "upstreams": [
+                    {
+                      "dial": "SSO:8080"
+                    }
+                  ]
+                }
+              ],
+              "terminal": true
             },
             {
               "match": [
@@ -45,11 +64,19 @@
               "match": [
                 {
                   "path_regexp": {
-                    "pattern": ".*js"
+                    "pattern": ".*js$"
                   }
                 }
               ],
               "handle": [
+                {
+                  "handler": "headers",
+                  "response": {
+                    "add": {
+                      "Service-Worker-Allowed": ["/"]
+                    }
+                  }
+                },
                 {
                   "handler": "file_server",
                   "root": "/app/public/static"
@@ -66,7 +93,8 @@
                     }
                   ]
                 }
-              ]
+              ],
+              "terminal": true
             }
           ]
         }

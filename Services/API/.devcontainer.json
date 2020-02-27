@@ -5,6 +5,8 @@
   // Docker Compose
   "dockerComposeFile": ["../../docker-compose.dev.yml"],
   "service": "API",
+  "shutdownAction": "none",
+  "runServices": ["API", "database"],
 
   // App Information
   "appPort": 80,
