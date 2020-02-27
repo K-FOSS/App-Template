@@ -85,6 +85,7 @@ services:
       # UI Folders
       - ./Services/SSO:/workspace/Services/SSO:delegated
       - ssoModules:/workspace/Services/SSO/node_modules
+      - ./local/AppTemplate.xml:/metadata.xml:ro
 
   SubscriberDL:
     image: docker.pkg.github.com/kristianfjones/distributed-dns/distributed-dns-subscriberdl
@@ -93,6 +94,7 @@ services:
     environment:
       API_URL: 'https://dns.kristianjones.dev'
     volumes:
+      - subscriberDLState:/data/State
       - tlsCertificates:/data/TLS
       - /var/run/docker.sock:/var/run/docker.sock
     labels:
@@ -120,3 +122,4 @@ volumes:
   pgAdminData:
   staticWeb:
   tlsCertificates:
+  subscriberDLState:
