@@ -1,0 +1,23 @@
+{
+  "name": "sso",
+  "version": "0.0.0",
+  "description": "SSO Web",
+  "main": "src/index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "test": "jest --verbose",
+    "dev:hmr": "nodemon",
+    "dev:debug": "node --nolazy --inspect-brk=0.0.0.0 --loader @k-foss/ts-esnode --experimental-modules --experimental-specifier-resolution=node --harmony-top-level-await ./",
+    "build": "tsc -p ./tsconfig.build.json"
+  },
+  "dependencies": {
+    "@k-foss/ts-esnode": "^1.1.0",
+    "typescript": "^3.8.2"
+  },
+  "devDependencies": {
+    "@types/node": "^13.7.6",
+    "nodemon": "^2.0.2"
+  },
+  "license": "ISC"
+}

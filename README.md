@@ -15,3 +15,9 @@ Once you have this code base local on your workstation and terminal in the same 
 Run: `./bin/startDevelopment.sh`
 
 For each 'service' you will a VSCode window, you will have a notification prompting to reopen in a Development Container, do that
+
+## Rename
+
+To rename from `App-Template` to your own application name TBD
+
+## API Development

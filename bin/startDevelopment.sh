@@ -1,5 +1,5 @@
 #!/bin/sh
-SERVICES="API UI"
+SERVICES="API UI SSO"
 COMPOSE_FILE="./docker-compose.dev.yml"
 
 function composer() {
@@ -9,5 +9,5 @@ function composer() {
 for service in ${SERVICES}; do
   composer run --rm ${service} sudo chown -R node:node /workspace &>/dev/null
   echo "Launching ${service} in new window"
-  code -n ./${service}
+  code -n ./Services/${service}
 done
