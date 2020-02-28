@@ -1,0 +1,22 @@
+{
+  // General
+  "name": "App Template SSO",
+
+  // Docker Compose
+  "dockerComposeFile": ["../../docker-compose.dev.yml"],
+  "service": "SSO",
+  "shutdownAction": "none",
+
+  // App Information
+  "appPort": 80,
+  "remoteUser": "node",
+  "workspaceFolder": "/workspace/Services/SSO",
+
+  "remoteEnv": {
+    "GIT_DISCOVERY_ACROSS_FILESYSTEM": "true"
+  },
+
+  // VSCode
+  "extensions": ["esbenp.prettier-vscode", "prisma.vscode-graphql"],
+  "postCreateCommand": "npm i"
+}

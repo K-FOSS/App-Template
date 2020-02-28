@@ -1,0 +1,23 @@
+{
+  // General
+  "name": "App Template UI",
+
+  // Docker Compose
+  "dockerComposeFile": ["../../docker-compose.dev.yml"],
+  "service": "UI",
+  "shutdownAction": "none",
+  "runServices": ["UI", "SSO"],
+
+  // App Information
+  "appPort": 80,
+  "remoteUser": "node",
+  "workspaceFolder": "/workspace/Services/UI",
+
+  "remoteEnv": {
+    "GIT_DISCOVERY_ACROSS_FILESYSTEM": "true"
+  },
+
+  // VSCode
+  "extensions": ["esbenp.prettier-vscode", "prisma.vscode-graphql"],
+  "postCreateCommand": "npm i"
+}

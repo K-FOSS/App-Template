@@ -1,0 +1,5 @@
+{
+  "watch": ["Server", "Hooks"],
+  "ext": "ts,tsx",
+  "exec": "npm run dev:debug"
+}

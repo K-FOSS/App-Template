@@ -1,5 +1,0 @@
-{
-  "watch": ["Server", "Hooks", "Components"],
-  "ext": "ts,tsx",
-  "exec": "npm run dev:debug"
-}

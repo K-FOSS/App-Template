@@ -1,0 +1,49 @@
+FROM alpine:3.11 as watchman-build
+RUN apk add --no-cache \
+  openssl-dev \
+  autoconf \
+  automake \
+  libtool \
+  python-dev \
+  build-base \
+  linux-headers
+
+# Step 6: Set environment variables:
+ENV WATCHMAN_VERSION=4.9.0 \
+  WATCHMAN_SHA256=1f6402dc70b1d056fffc3748f2fdcecff730d8843bb6936de395b3443ce05322
+
+# Step 7: Download watchman source.
+RUN mkdir -p /tmp/watchman \
+  && wget -O - https://github.com/facebook/watchman/archive/v${WATCHMAN_VERSION}.tar.gz | tar xz -C /tmp/watchman --strip-components=1
+
+# Step 8: Build watchman from source:
+RUN cd /tmp/watchman \
+  && ./autogen.sh \
+  && ./configure \
+  --enable-lenient \
+  --with-gnu-ld \
+  --disable-dependency-tracking \
+  --disable-shared \
+  && make -j$(getconf _NPROCESSORS_ONLN)
+
+FROM node:alpine3.11
+# This Dockerfile adds a non-root user with sudo access. Use the "remoteUser"
+# property in devcontainer.json to use it. On Linux, the container user's GID/UIDs
+# will be updated to match your local UID/GID (when using the dockerFile property).
+# See https://aka.ms/vscode-remote/containers/non-root-user for details.
+ARG USERNAME=node
+ARG USER_UID=1000
+ARG USER_GID=$USER_UID
+
+RUN apk add --no-cache sudo git
+
+# Add Sudo to allow occasional usage of root. I wish I could remove this but I can't seem to get the node_modules volume working correctly.
+RUN echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
+  && chmod 0440 /etc/sudoers.d/$USERNAME
+
+COPY --from=watchman-build /tmp/watchman/watchman /usr/bin/watchman
+
+RUN mkdir -p /usr/local/var/run/watchman \
+  && chown -R node:${USER_GID} /usr/local/var/run/watchman
+
+CMD [ "tail", "-f", "/dev/null" ]
