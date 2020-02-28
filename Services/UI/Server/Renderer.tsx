@@ -7,7 +7,6 @@ import { Duplex, Transform } from 'stream';
 import { ApolloProvider } from '../Web/Providers/ApolloProvider';
 import { ThemeProvider } from '../Web/Providers/ThemeProvider';
 import { StaticRouter } from 'react-router';
-import { ServerStyleSheets } from '@material-ui/core/styles';
 
 const htmlStart = `<!DOCTYPE html>
 <html><head>
@@ -38,7 +37,6 @@ export async function renderUIStream(url?: string): Promise<Duplex> {
   const { App } = await import('../dist/server/Web/App');
 
   const serverCache = new InMemoryCache();
-  const serverSheets = new ServerStyleSheets();
 
   const context = {};
   const app = (
@@ -50,14 +48,13 @@ export async function renderUIStream(url?: string): Promise<Duplex> {
       </ApolloProvider>
     </StaticRouter>
   );
-  await getDataFromTree(serverSheets.collect(app));
 
   const appStream = renderToNodeStream(app);
 
   uiStream.write(
     `<script type="application/javascript">window.APOLLO_STATE = ${JSON.stringify(
       serverCache.extract(),
-    )}</script><style id="jss-server-side">${serverSheets.toString()}</style></head><body><div id="app">`,
+    )}</script></head><body><div id="app">`,
   );
 
   appStream.pipe(uiStream, { end: false });
