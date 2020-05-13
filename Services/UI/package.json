@@ -64,7 +64,7 @@
     "@types/workbox-sw": "^4.3.0",
     "nodemon": "^2.0.2",
     "parcel": "^2.0.0-nightly.128",
-    "readable-stream": "^2.3.7",
+    "readable-stream": "^3.6.0",
     "ts-node": "^8.6.2"
   },
   "license": "ISC"
