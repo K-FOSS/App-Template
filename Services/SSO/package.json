@@ -22,7 +22,7 @@
     "typescript": "^3.8.2"
   },
   "devDependencies": {
-    "@types/jsonwebtoken": "^8.3.7",
+    "@types/jsonwebtoken": "^8.3.9",
     "@types/node": "^13.7.6",
     "nodemon": "^2.0.2"
   },
