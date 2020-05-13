@@ -30,7 +30,7 @@
     "reflect-metadata": "^0.1.13",
     "samlify": "^2.7.1",
     "type-graphql": "^0.18.0-beta.10",
-    "typeorm": "^0.3.0-rc.17",
+    "typeorm": "^0.3.0-rc.19",
     "typescript": "^3.8.2"
   },
   "devDependencies": {
