@@ -22,7 +22,7 @@
     "@authenio/samlify-node-xmllint": "^1.0.2",
     "@google-cloud/logging": "^7.3.0",
     "@k-foss/ts-esnode": "^1.4.0",
-    "apollo-server-fastify": "^2.10.1",
+    "apollo-server-fastify": "^2.13.1",
     "fastify": "^2.14.1",
     "globby": "^11.0.0",
     "graphql": "^14.6.0",
