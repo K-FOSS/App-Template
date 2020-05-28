@@ -53,7 +53,7 @@
   "devDependencies": {
     "@graphql-codegen/cli": "^1.13.5",
     "@graphql-codegen/fragment-matcher": "^1.13.5",
-    "@k-foss/ts-esnode": "^1.4.0",
+    "@k-foss/ts-esnode": "^1.6.0",
     "@parcel/transformer-typescript-tsc": "^2.0.0-nightly.130",
     "@types/jsonwebtoken": "^8.3.7",
     "@types/node": "^14.0.1",
