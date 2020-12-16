@@ -54,7 +54,7 @@
     "@graphql-codegen/cli": "^1.13.5",
     "@graphql-codegen/fragment-matcher": "^1.13.5",
     "@k-foss/ts-esnode": "^1.4.0",
-    "@parcel/transformer-typescript-tsc": "^2.0.0-nightly.130",
+    "@parcel/transformer-typescript-tsc": "^2.0.0-nightly.483",
     "@types/jsonwebtoken": "^8.3.7",
     "@types/node": "^14.0.1",
     "@types/react": "^16.9.35",
