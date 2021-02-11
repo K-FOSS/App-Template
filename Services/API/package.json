@@ -31,7 +31,7 @@
     "samlify": "^2.7.3",
     "type-graphql": "^0.18.0-beta.10",
     "typeorm": "^0.3.0-rc.19",
-    "typescript": "^3.9.2"
+    "typescript": "^3.9.9"
   },
   "devDependencies": {
     "@divyenduz/ts-graphql-plugin": "^0.1.0",
