@@ -1,0 +1,235 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/Services/API"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  versioning-strategy: increase
+  ignore:
+  - dependency-name: "@types/node"
+    versions:
+    - 14.14.22
+    - 14.14.24
+    - 14.14.25
+    - 14.14.26
+    - 14.14.28
+    - 14.14.30
+    - 14.14.31
+    - 14.14.32
+    - 14.14.33
+    - 14.14.34
+    - 14.14.35
+    - 14.14.36
+    - 14.14.37
+    - 14.14.39
+    - 14.14.41
+    - 15.0.0
+  - dependency-name: y18n
+    versions:
+    - 4.0.1
+    - 4.0.2
+  - dependency-name: apollo-server-core
+    versions:
+    - 2.19.2
+    - 2.20.0
+    - 2.21.0
+    - 2.21.1
+    - 2.21.2
+    - 2.22.1
+    - 2.22.2
+  - dependency-name: "@types/jest"
+    versions:
+    - 26.0.20
+    - 26.0.21
+    - 26.0.22
+  - dependency-name: typescript
+    versions:
+    - 3.9.7
+    - 3.9.8
+  - dependency-name: globby
+    versions:
+    - 11.0.2
+  - dependency-name: pg
+    versions:
+    - 8.5.1
+  - dependency-name: "@k-foss/ts-esnode"
+    versions:
+    - 1.7.0
+  - dependency-name: lodash
+    versions:
+    - 4.17.20
+- package-ecosystem: npm
+  directory: "/Services/SSO"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  versioning-strategy: increase
+  ignore:
+  - dependency-name: "@types/node"
+    versions:
+    - 14.14.22
+    - 14.14.24
+    - 14.14.25
+    - 14.14.26
+    - 14.14.28
+    - 14.14.30
+    - 14.14.31
+    - 14.14.32
+    - 14.14.33
+    - 14.14.34
+    - 14.14.35
+    - 14.14.36
+    - 14.14.37
+    - 14.14.39
+    - 14.14.41
+    - 15.0.0
+  - dependency-name: fastify-cookie
+    versions:
+    - 5.1.0
+    - 5.2.0
+  - dependency-name: typescript
+    versions:
+    - 4.1.3
+    - 4.1.4
+    - 4.1.5
+    - 4.2.2
+    - 4.2.3
+  - dependency-name: "@k-foss/ts-esnode"
+    versions:
+    - 1.7.0
+  - dependency-name: "@types/jsonwebtoken"
+    versions:
+    - 8.5.0
+- package-ecosystem: npm
+  directory: "/Services/UI"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  versioning-strategy: increase
+  ignore:
+  - dependency-name: "@parcel/transformer-typescript-tsc"
+    versions:
+    - 2.0.0-nightly.556
+    - 2.0.0-nightly.562
+    - 2.0.0-nightly.564
+    - 2.0.0-nightly.568
+    - 2.0.0-nightly.572
+    - 2.0.0-nightly.575
+    - 2.0.0-nightly.576
+    - 2.0.0-nightly.579
+    - 2.0.0-nightly.581
+    - 2.0.0-nightly.587
+    - 2.0.0-nightly.598
+    - 2.0.0-nightly.599
+    - 2.0.0-nightly.600
+    - 2.0.0-nightly.602
+    - 2.0.0-nightly.607
+    - 2.0.0-nightly.608
+    - 2.0.0-nightly.609
+    - 2.0.0-nightly.610
+    - 2.0.0-nightly.611
+    - 2.0.0-nightly.612
+    - 2.0.0-nightly.616
+    - 2.0.0-nightly.617
+    - 2.0.0-nightly.621
+    - 2.0.0-nightly.622
+    - 2.0.0-nightly.625
+    - 2.0.0-nightly.628
+    - 2.0.0-nightly.629
+    - 2.0.0-nightly.630
+    - 2.0.0-nightly.632
+    - 2.0.0-nightly.633
+    - 2.0.0-nightly.634
+    - 2.0.0-nightly.636
+    - 2.0.0-nightly.637
+    - 2.0.0-nightly.638
+    - 2.0.0-nightly.639
+    - 2.0.0-nightly.641
+    - 2.0.0-nightly.642
+    - 2.0.0-nightly.643
+    - 2.0.0-nightly.645
+    - 2.0.0-nightly.646
+    - 2.0.0-nightly.648
+  - dependency-name: parcel
+    versions:
+    - 2.0.0-nightly.554
+    - 2.0.0-nightly.560
+    - 2.0.0-nightly.562
+    - 2.0.0-nightly.566
+    - 2.0.0-nightly.570
+    - 2.0.0-nightly.573
+    - 2.0.0-nightly.574
+    - 2.0.0-nightly.577
+    - 2.0.0-nightly.579
+    - 2.0.0-nightly.585
+    - 2.0.0-nightly.596
+    - 2.0.0-nightly.597
+    - 2.0.0-nightly.598
+    - 2.0.0-nightly.600
+    - 2.0.0-nightly.605
+    - 2.0.0-nightly.606
+    - 2.0.0-nightly.607
+    - 2.0.0-nightly.608
+    - 2.0.0-nightly.609
+    - 2.0.0-nightly.610
+    - 2.0.0-nightly.614
+    - 2.0.0-nightly.615
+    - 2.0.0-nightly.619
+    - 2.0.0-nightly.620
+    - 2.0.0-nightly.623
+    - 2.0.0-nightly.626
+    - 2.0.0-nightly.627
+    - 2.0.0-nightly.628
+    - 2.0.0-nightly.630
+    - 2.0.0-nightly.631
+    - 2.0.0-nightly.632
+    - 2.0.0-nightly.634
+    - 2.0.0-nightly.635
+    - 2.0.0-nightly.636
+    - 2.0.0-nightly.637
+    - 2.0.0-nightly.639
+    - 2.0.0-nightly.640
+    - 2.0.0-nightly.641
+    - 2.0.0-nightly.643
+    - 2.0.0-nightly.644
+    - 2.0.0-nightly.646
+  - dependency-name: "@apollo/client"
+    versions:
+    - 3.3.10
+    - 3.3.11
+    - 3.3.12
+    - 3.3.13
+    - 3.3.14
+    - 3.3.7
+    - 3.3.8
+    - 3.3.9
+  - dependency-name: y18n
+    versions:
+    - 4.0.1
+  - dependency-name: workbox-strategies
+    versions:
+    - 6.0.2
+    - 6.1.0
+    - 6.1.1
+    - 6.1.2
+  - dependency-name: typescript
+    versions:
+    - 4.1.3
+    - 4.1.4
+    - 4.1.5
+    - 4.2.2
+    - 4.2.3
+  - dependency-name: bl
+    versions:
+    - 4.0.3
+    - 4.0.4
+  - dependency-name: "@k-foss/ts-esnode"
+    versions:
+    - 1.7.0
+  - dependency-name: elliptic
+    versions:
+    - 6.5.3
+  - dependency-name: "@types/jsonwebtoken"
+    versions:
+    - 8.5.0
