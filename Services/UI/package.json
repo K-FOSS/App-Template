@@ -65,7 +65,7 @@
     "nodemon": "^2.0.2",
     "parcel": "^2.0.0-nightly.266",
     "readable-stream": "^3.6.0",
-    "ts-node": "^8.6.2"
+    "ts-node": "^10.0.0"
   },
   "license": "ISC"
 }
