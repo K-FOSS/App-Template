@@ -28,7 +28,7 @@
     "graphql": "^14.6.0",
     "pg": "^7.18.2",
     "reflect-metadata": "^0.1.13",
-    "samlify": "^2.7.3",
+    "samlify": "^2.8.5",
     "type-graphql": "^0.18.0-beta.10",
     "typeorm": "^0.3.0-rc.19",
     "typescript": "^3.9.2"
